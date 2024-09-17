@@ -20,92 +20,92 @@ pub fn transcribe_dna_to_rna(dna: &str) -> Result<String, &'static str> {
 
 /// Translation
 // Genetic code mapping codons to amino acids
-const GENETIC_CODE: &[(&str, &str)] = &[
+const GENETIC_CODE: &[(&str, char)] = &[
     // M
-    ("AUG", "M"),
+    ("AUG", 'M'),
     // V
-    ("GUG", "V"),
-    ("GUA", "V"),
-    ("GUC", "V"),
-    ("GUU", "V"),
+    ("GUG", 'V'),
+    ("GUA", 'V'),
+    ("GUC", 'V'),
+    ("GUU", 'V'),
     // A
-    ("GCU", "A"),
-    ("GCC", "A"),
-    ("GCA", "A"),
-    ("GCG", "A"),
+    ("GCU", 'A'),
+    ("GCC", 'A'),
+    ("GCA", 'A'),
+    ("GCG", 'A'),
     // D
-    ("GAC", "D"),
-    ("GAU", "D"),
+    ("GAC", 'D'),
+    ("GAU", 'D'),
     // E
-    ("GAG", "E"),
-    ("GAA", "E"),
+    ("GAG", 'E'),
+    ("GAA", 'E'),
     // G
-    ("GGG", "G"),
-    ("GGA", "G"),
-    ("GGC", "G"),
-    ("GGU", "G"),
+    ("GGG", 'G'),
+    ("GGA", 'G'),
+    ("GGC", 'G'),
+    ("GGU", 'G'),
     // F
-    ("UUU", "F"),
-    ("UUC", "F"),
+    ("UUU", 'F'),
+    ("UUC", 'F'),
     // L
-    ("UUA", "L"),
-    ("UUG", "L"),
-    ("CUU", "L"),
-    ("CUC", "L"),
-    ("CUA", "L"),
-    ("CUG", "L"),
+    ("UUA", 'L'),
+    ("UUG", 'L'),
+    ("CUU", 'L'),
+    ("CUC", 'L'),
+    ("CUA", 'L'),
+    ("CUG", 'L'),
     // S
-    ("UCU", "S"),
-    ("UCC", "S"),
-    ("UCA", "S"),
-    ("UCG", "S"),
-    ("AGU", "S"),
-    ("AGC", "S"),
+    ("UCU", 'S'),
+    ("UCC", 'S'),
+    ("UCA", 'S'),
+    ("UCG", 'S'),
+    ("AGU", 'S'),
+    ("AGC", 'S'),
     // Y
-    ("UAU", "Y"),
-    ("UAC", "Y"),
+    ("UAU", 'Y'),
+    ("UAC", 'Y'),
     // C
-    ("UGU", "C"),
-    ("UGC", "C"),
+    ("UGU", 'C'),
+    ("UGC", 'C'),
     // W
-    ("UGG", "W"),
+    ("UGG", 'W'),
     // P
-    ("CCU", "P"),
-    ("CCC", "P"),
-    ("CCA", "P"),
-    ("CCG", "P"),
+    ("CCU", 'P'),
+    ("CCC", 'P'),
+    ("CCA", 'P'),
+    ("CCG", 'P'),
     // H
-    ("CAU", "H"),
-    ("CAC", "H"),
+    ("CAU", 'H'),
+    ("CAC", 'H'),
     // Q
-    ("CAA", "Q"),
-    ("CAG", "Q"),
+    ("CAA", 'Q'),
+    ("CAG", 'Q'),
     // R
-    ("CGU", "R"),
-    ("CGC", "R"),
-    ("CGA", "R"),
-    ("CGG", "R"),
-    ("AGA", "R"),
-    ("AGG", "R"),
+    ("CGU", 'R'),
+    ("CGC", 'R'),
+    ("CGA", 'R'),
+    ("CGG", 'R'),
+    ("AGA", 'R'),
+    ("AGG", 'R'),
     // I
-    ("AUU", "I"),
-    ("AUC", "I"),
-    ("AUA", "I"),
+    ("AUU", 'I'),
+    ("AUC", 'I'),
+    ("AUA", 'I'),
     // T
-    ("ACU", "T"),
-    ("ACC", "T"),
-    ("ACA", "T"),
-    ("ACG", "T"),
+    ("ACU", 'T'),
+    ("ACC", 'T'),
+    ("ACA", 'T'),
+    ("ACG", 'T'),
     // N
-    ("AAU", "N"),
-    ("AAC", "N"),
+    ("AAU", 'N'),
+    ("AAC", 'N'),
     // K
-    ("AAA", "K"),
-    ("AAG", "K"),
+    ("AAA", 'K'),
+    ("AAG", 'K'),
     // Stop
-    ("UAA", "*"),
-    ("UAG", "*"),
-    ("UGA", "*"),
+    ("UAA", '*'),
+    ("UAG", '*'),
+    ("UGA", '*'),
 ];
 
 pub fn translate_rna_to_aa(dna: &str) -> String {
@@ -116,7 +116,7 @@ pub fn translate_rna_to_aa(dna: &str) -> String {
         if codon.len() == 3 {
             let codon_str = std::str::from_utf8(codon).unwrap();
             if let Some(aa) = codons.get(codon_str) {
-                aa_seq.push_str(aa);
+                aa_seq.push(*aa);
             } else {
                 return String::from("Invalid RNA sequence");
             }
